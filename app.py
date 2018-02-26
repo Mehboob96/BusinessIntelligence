@@ -4,7 +4,7 @@ from database import *
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/protected')
 def home():
 	return render_template('index.html')
 
@@ -14,26 +14,22 @@ def login():
 	if request.method == 'GET':
 		return render_template('login.html')
 	else:
-		print User.select().where((User.username == request.form['username']) & (User.password == request.form['password'])).count()
-		# res = User.select().count()
-		# print res
-		# for r in res:
-		# 	print r.username
-		# return	
-		if request.form['username'] != 'admin' or request.form['password'] != '123':
-			error = 'Invalid Credentials. Please try again.'
-			return render_template('login.html')
+		# print User.select().where((User.username == request.form['username']) & (User.password == request.form['password'])).count()
+		# session.pop('user', None)
+
+		if request.form['username'] == 'admin' and request.form['password'] == '123':
+			# error = 'Invalid Credentials. Please try
+			# session['user'] = request.form['username']
+			return redirect(url_for('home'))
 		else:
-			return render_template('index.html')
+			return render_template('login.html')
 
 @app.route('/registration',methods=['POST'])
 def register():
-	# return request.form['username']
-	# db.add(User('request.form["username"]','request.form["password"]','request.form["email"]'))
-	# db.commit()
-
 	User.create(username = request.form['username'],
 		password = request.form['password'],
 		email = request.form['email'])
-	#User.create()
-	#User.create()
+
+if __name__ == "__main__":
+	# app.debug = True
+	app.run(debug=True)
