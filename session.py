@@ -1,4 +1,5 @@
 from flask import Flask, session, render_template, request, redirect, g, url_for
+from database import *
 import os
 
 app =Flask(__name__)
@@ -9,18 +10,19 @@ def index():
     if request.method == 'POST':
         session.pop('user', None)
 
-        if request.form['password'] == '123':
+        users = User.select().where((User.username == request.form['username']) & ((User.password == request.form['password'])))
+        if users:
             session['user'] = request.form['username']
             return redirect(url_for('protected'))
 
-    return render_template('indexx.html')
+    return render_template('login.html')
 
-@app.route('/protected')
+@app.route('/home')
 def protected():
     if g.user:
-        return render_template('protected.html')
+        return render_template('index.html',user = session['user'])
 
-    return redirect(url_for('indexx'))
+    return redirect(url_for('index'))
 
 @app.before_request
 def before_request():
@@ -38,7 +40,15 @@ def getsession():
 @app.route('/dropsession')
 def dropsession():
     session.pop('user', None)
-    return 'Dropped'
+    return redirect(url_for('index'))
+
+@app.route('/registration',methods=['POST'])
+def register():
+	User.create(username = request.form['username'],
+		password = request.form['password'],
+		email = request.form['email'])
+        return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
