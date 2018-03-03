@@ -44,7 +44,7 @@ def dropsession():
 
 @app.route('/registration',methods=['POST'])
 def register():
-	User.create(username = request.form['username'],
+	status = User.create(username = request.form['username'],
 		password = request.form['password'],
 		email = request.form['email'])
         return redirect(url_for('index'))
