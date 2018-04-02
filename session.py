@@ -1,3 +1,6 @@
+import pandas as pd
+from flask_pymongo import PyMongo
+from pymongo import MongoClient
 from flask import Flask, session, render_template, request, redirect, g, url_for
 from database import *
 import os
@@ -23,6 +26,13 @@ def protected():
         return render_template('index.html',user = session['user'])
 
     return redirect(url_for('index'))
+
+@app.route('/add')
+def add():
+    if g.user:
+        return render_template('plain_page.html',user = session['user'])
+
+    return redirect(url_for('protected'))
 
 @app.before_request
 def before_request():

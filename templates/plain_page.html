@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="icon" href="images/favicon.ico" type="image/ico" /> -->
+
+  <title>Business Intelligence </title>
+
+  <link href={{ url_for("static",filename="build/css/bootstrap.min.css") }} rel="stylesheet">
+  <link href={{ url_for("static",filename="vendors/font-awesome/css/font-awesome.min.css") }} rel="stylesheet">
+  <link href={{ url_for("static",filename="build/css/nprogress.css") }} rel="stylesheet">
+  <link href={{ url_for("static",filename="vendors/iCheck/skins/flat/green.css") }} rel="stylesheet">
+  <link href={{ url_for("static",filename="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css") }} rel="stylesheet">
+  <link href={{ url_for("static",filename="vendors/jqvmap/dist/jqvmap.min.css") }} rel="stylesheet"/>
+  <link href={{ url_for("static",filename="vendors/bootstrap-daterangepicker/daterangepicker.css") }} rel="stylesheet">
+  <link href={{ url_for("static",filename="build/css/custom.min.css") }} rel="stylesheet">
+  <link href={{ url_for("static",filename="build/css/stepwizard.css") }} rel="stylesheet">
+  <link href={{ url_for("static",filename="build/css/addselect.css") }} rel="stylesheet">
+
+
+  <link href={{ url_for("static",filename="build/css/bootstrap-select.min.css") }} rel="stylesheet">
+
+</head>
+
+<body class="nav-md">
+  <div class="container body">
+    <div class="main_container">
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+          <div class="navbar nav_title" style="border: 0;">
+            <a href="/home" class="site_title"> <span>Business Intelligence</span></a>
+          </div>
+          <div class="clearfix"></div>
+          <!-- menu profile quick info -->
+          <div class="profile clearfix">
+            <div class="profile_pic">
+              <img src={{ url_for("static",filename="images/bi.png") }} alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+              <span>Welcome,</span>
+              <h2>{{user}}</h2>
+            </div>
+          </div><br />
+          <!-- sidebar menu -->
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <!-- <h3>General</h3> -->
+              <ul class="nav side-menu">
+                <li><a href="/home"><i class="fa fa-home"></i> Home</a>
+                </li>
+                <li><a><i class="fa fa-file"></i> Statements <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="/add">Add</a></li>
+                    <li><a href="">cashin</a></li>
+                    <li><a href="">cashout</a></li>
+                  </ul>
+
+                  <li><a><i class="fa fa-table"></i>test2<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="">Test2.1</a></li>
+                      <li><a href="">test2.2</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-bar-chart-o"></i> Data Representation <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="">Test 3.1</a></li>
+                      <li><a href="">test 3.2</a></li>
+                      <li><a href="">test 3.3</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-clone"></i>Extra <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="">test 4.1</a></li>
+                      <li><a href="">test 4.2</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+        </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="fa fa--cog" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="fa fa-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="fa fa-eye-close" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="/dropsession">
+                <span class="fa fa-sign-out" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+
+      </div>
+    </div>
+
+    <!-- top navigation -->
+    <div class="top_nav">
+      <div class="nav_menu">
+                  <nav>
+                    <div class="nav toggle">
+                      <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                      <li class="">
+                        <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                          <img src="images/img.png" alt=""> sms&nbsp;
+                          <span class=" fa fa-angle-down"> </span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-usermenu pull-right">
+                          <li><a href="javascript:;"> Profile</a></li>
+                          <!-- <li> -->
+                            <a href="javascript:;">
+                              <!-- <span class="badge bg-red pull-right">50%</span> -->
+                              <!-- <span>Settings</span> -->
+                            </a>
+                          <!-- </li> -->
+                          <!-- <li><a href="javascript:;">Help</a></li> -->
+                          <li><a href="/dropsession"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+    </div>
+        <!-- /top navigation -->
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+      <!-- page content starts -->
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Input <small>Sessions</small></h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Settings 1</a>
+                    </li>
+                    <li><a href="#">Settings 2</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <!-- Input content goes here -->
+
+            <div class="stepwizard col-md-offset-3">
+              <div class="stepwizard-row setup-panel">
+                <div class="stepwizard-step">
+                  <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+                  <p style="color:#7fa4d4;">Step 1</p>
+                  <span><strong><small>Balance Sheet</small></strong></span>
+                </div>
+                <div class="stepwizard-step">
+                  <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                  <p style="color:#7fa4d4;">Step 2</p>
+                  <span><strong><small>Cashflow Statements</strong></small></span>
+                </div>
+                <div class="stepwizard-step">
+                  <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                  <p style="color:#7fa4d4;">Step 3</p>
+                  <span><strong><small>Income Statements</small></strong></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form goes here -->
+            <form role="form" action="/addStatement" method="POST">
+
+              <!-- Balance Sheet goes here -->
+              <div class="setup-content" id="step-1">
+
+                    <!-- Assets -->
+                    <div class="container">
+                      <div class="panel panel-default" style="margin-top:30px;">
+                        <div class="panel-heading" style="color: #337ab7;font-weight: bold;">Assets</div>
+                        <div class="panel-body">
+                          <div class="row">
+                            <div class="col-md-12 asset-after-add-more">
+                              <div class="control-group col-md-4">
+                                <input type="text" name="assettype[]" class="form-control" placeholder="Enter Asset Type" required="required">
+                              </div>
+                              <div class="control-group col-md-4">
+                                <input type="number" name="assetamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                              </div>
+                              <div class="col-md-2">
+                                <button class="btn btn-success asset-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
+                              </div>
+                            </div>
+                          </div>
+
+                            <!-- Asset Hidden Fields goes here which will be added dynamicaly-->
+                            <div class="asset-copy-fields hide">
+                              <div class="col-md-12 control-group" style="margin-top:20px;">
+                                <div class="control-group col-md-4">
+                                  <input type="text" name="assettype[]" class="form-control" placeholder="Enter Asset Type">
+                                </div>
+                                <div class="control-group col-md-4">
+                                  <input type="number" name="assetamount[]" class="form-control" placeholder="Enter Amount">
+                                </div>
+                                <div class="input-group-btn col-md-2">
+                                  <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
+                                </div>
+                              </div>
+                            </div>
+                    	</div>
+                      </div>
+
+                      <!-- Liabilities -->
+                      <div class="panel panel-default" style="margin-top:40px;">
+                        <div class="panel-heading" style="color: #337ab7;font-weight: bold;">Liabilities</div>
+                        <div class="panel-body">
+                          <div class="row">
+                            <div class="col-md-12 liability-after-add-more">
+                              <div class="control-group col-md-4">
+                                <input type="text" name="liabilitytype[]" class="form-control" placeholder="Enter Liability Type" required="required">
+                              </div>
+                              <div class="control-group col-md-4">
+                                <input type="number" name="liabilityamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                              </div>
+                              <div class="col-md-2">
+                                <button class="btn btn-success liability-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
+                              </div>
+                            </div>
+                          </div>
+
+                            <!-- Liabilities Hidden Fields goes here which will be added dynamicaly-->
+                            <div class="liability-copy-fields hide">
+                              <div class="col-md-12 control-group" style="margin-top:20px;">
+                                <div class="control-group col-md-4">
+                                  <input type="text" name="liabilitytype[]" class="form-control" placeholder="Enter Liability Type">
+                                </div>
+                                <div class="control-group col-md-4">
+                                  <input type="number" name="liabilityamount[]" class="form-control" placeholder="Enter Amount">
+                                </div>
+                                <div class="input-group-btn col-md-2">
+                                  <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
+                                </div>
+                              </div>
+                            </div>
+                    	</div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <button class="btn btn-primary nextBtn btn-md pull-right" type="button" >Next</button>
+                    </div>
+                </div>
+                <!-- Balance Sheet ends -->
+
+              <!-- Cashflow goes here -->
+              <div class="row setup-content" id="step-2">
+
+                <div class="container">
+                  <div class="panel panel-default" style="margin-top:30px;">
+                    <div class="panel-heading" style="color: #337ab7;font-weight: bold;">Operating Cash Flow</div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-12 operating-after-add-more">
+                          <div class="control-group col-md-4">
+                            <input type="text" name="operatingtype[]" class="form-control" placeholder="Enter Operating Type" required="required">
+                          </div>
+                          <div class="control-group col-md-4">
+                            <input type="number" name="operatingamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                          </div>
+                          <div class="col-md-2">
+                            <button class="btn btn-success operating-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
+                          </div>
+                        </div>
+                      </div>
+
+                        <!-- Operating Cash Flow Hidden Fields goes here which will be added dynamicaly-->
+                        <div class="operating-copy-fields hide">
+                          <div class="col-md-12 control-group" style="margin-top:20px;">
+                            <div class="control-group col-md-4">
+                              <input type="text" name="operatingtype[]" class="form-control" placeholder="Enter Operating Type">
+                            </div>
+                            <div class="control-group col-md-4">
+                              <input type="number" name="operatingamount[]" class="form-control" placeholder="Enter Amount">
+                            </div>
+                            <div class="input-group-btn col-md-2">
+                              <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+                  </div>
+
+                  <!-- Investing Cash Flow -->
+                  <div class="panel panel-default" style="margin-top:40px;">
+                    <div class="panel-heading" style="color: #337ab7;font-weight: bold;">Investing Cash Flow</div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-12 investing-after-add-more">
+                          <div class="control-group col-md-4">
+                            <input type="text" name="investingtype[]" class="form-control" placeholder="Enter Investing Type" required="required">
+                          </div>
+                          <div class="control-group col-md-4">
+                            <input type="number" name="investingamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                          </div>
+                          <div class="col-md-2">
+                            <button class="btn btn-success investing-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
+                          </div>
+                        </div>
+                      </div>
+
+                        <!-- Investing Cash Flow Hidden Fields goes here which will be added dynamicaly-->
+                        <div class="investing-copy-fields hide">
+                          <div class="col-md-12 control-group" style="margin-top:20px;">
+                            <div class="control-group col-md-4">
+                              <input type="text" name="investingtype[]" class="form-control" placeholder="Enter Investing Type">
+                            </div>
+                            <div class="control-group col-md-4">
+                              <input type="number" name="investingamount[]" class="form-control" placeholder="Enter Amount">
+                            </div>
+                            <div class="input-group-btn col-md-2">
+                              <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+                  </div>
+
+                  <!-- Financing Cash Flow -->
+                  <div class="panel panel-default" style="margin-top:40px;">
+                    <div class="panel-heading" style="color: #337ab7;font-weight: bold;">Financing Cash Flow</div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-12 financing-after-add-more">
+                          <div class="control-group col-md-4">
+                            <input type="text" name="financingtype[]" class="form-control" placeholder="Enter Financing Type" required="required">
+                          </div>
+                          <div class="control-group col-md-4">
+                            <input type="number" name="financingamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                          </div>
+                          <div class="col-md-2">
+                            <button class="btn btn-success financing-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
+                          </div>
+                        </div>
+                      </div>
+
+                        <!-- Financing Cash Flow Hidden Fields goes here which will be added dynamicaly-->
+                        <div class="financing-copy-fields hide">
+                          <div class="col-md-12 control-group" style="margin-top:20px;">
+                            <div class="control-group col-md-4">
+                              <input type="text" name="financingtype[]" class="form-control" placeholder="Enter Financing Type">
+                            </div>
+                            <div class="control-group col-md-4">
+                              <input type="number" name="financingamount[]" class="form-control" placeholder="Enter Amount">
+                            </div>
+                            <div class="input-group-btn col-md-2">
+                              <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+                  </div>
+
+
+
+                </div>
+                <div class="col-md-12">
+                  <button class="btn btn-primary nextBtn btn-md pull-right" type="button" >Next</button>
+                </div>
+
+              </div>
+              <div class="row setup-content" id="step-3">
+                <!-- Revenue -->
+                <div class="container">
+                  <div class="panel panel-default" style="margin-top:30px;">
+                    <div class="panel-heading" style="color: #337ab7;font-weight: bold;">Revenue</div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-12 revenue-after-add-more">
+                          <div class="control-group col-md-4">
+                            <input type="text" name="revenuetype[]" class="form-control" placeholder="Enter Revenue Type" required="required">
+                          </div>
+                          <div class="control-group col-md-4">
+                            <input type="number" name="revenueamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                          </div>
+                          <div class="col-md-2">
+                            <button class="btn btn-success revenue-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
+                          </div>
+                        </div>
+                      </div>
+
+                        <!-- Revenue Hidden Fields goes here which will be added dynamicaly-->
+                        <div class="revenue-copy-fields hide">
+                          <div class="col-md-12 control-group" style="margin-top:20px;">
+                            <div class="control-group col-md-4">
+                              <input type="text" name="revenuetype[]" class="form-control" placeholder="Enter Revenue Type">
+                            </div>
+                            <div class="control-group col-md-4">
+                              <input type="number" name="revenueamount[]" class="form-control" placeholder="Enter Amount">
+                            </div>
+                            <div class="input-group-btn col-md-2">
+                              <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+                  </div>
+
+                  <!-- Expenses -->
+                  <div class="panel panel-default" style="margin-top:40px;">
+                    <div class="panel-heading" style="color: #337ab7;font-weight: bold;">Expenses</div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-12 expenses-after-add-more">
+                          <div class="control-group col-md-4">
+                            <input type="text" name="expensestype[]" class="form-control" placeholder="Enter Expenses Type" required="required">
+                          </div>
+                          <div class="control-group col-md-4">
+                            <input type="number" name="expensesamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                          </div>
+                          <div class="col-md-2">
+                            <button class="btn btn-success expenses-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
+                          </div>
+                        </div>
+                      </div>
+
+                        <!-- Expenses Hidden Fields goes here which will be added dynamicaly-->
+                        <div class="expenses-copy-fields hide">
+                          <div class="col-md-12 control-group" style="margin-top:20px;">
+                            <div class="control-group col-md-4">
+                              <input type="text" name="expensestype[]" class="form-control" placeholder="Enter Expenses Type">
+                            </div>
+                            <div class="control-group col-md-4">
+                              <input type="number" name="expensesamount[]" class="form-control" placeholder="Enter Amount">
+                            </div>
+                            <div class="input-group-btn col-md-2">
+                              <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <button class="btn btn-primary nextBtn btn-md pull-right" type="button" name="submit" >Submit</button>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- jQuery -->
+<script src={{ url_for("static",filename="vendors/jquery/dist/jquery.min.js") }}></script>
+<!-- Bootstrap -->
+<script src={{ url_for("static",filename="vendors/bootstrap/dist/js/bootstrap.min.js") }}></script>
+<!-- Custom Theme Scripts -->
+<script src={{ url_for("static",filename="build/js/custom.min.js") }}></script>
+<!-- bootstrap -->
+<script src={{ url_for("static",filename="build/js/bootstrap-select.min.js") }}></script>
+<script src={{ url_for("static",filename="build/js/fastclick.js") }}></script>
+<script src={{ url_for("static",filename="build/js/nprogress.js") }}></script>
+<script src={{ url_for("static",filename="build/js/stepwizard.js") }}></script>
+<script src={{ url_for("static",filename="build/js/addselect.js") }}></script>
+<!-- <script src={{ url_for("static",filename="build/js/jquery-1.11.1.min.js") }}></script> -->
+<script type="text/javascript">
+<script type="text/javascript">
+$(function()
+{
+  $(document).on('click', '.btn-add', function(e)
+  {
+      e.preventDefault();
+
+      var controlForm = $('.controls form:first'),
+          currentEntry = $(this).parents('.entry:first'),
+          newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+      newEntry.find('input').val('');
+      controlForm.find('.entry:not(:last) .btn-add')
+          .removeClass('btn-add').addClass('btn-remove')
+          .removeClass('btn-success').addClass('btn-danger')
+          .html('<span class="glyphicon glyphicon-minus"></span>');
+  }).on('click', '.btn-remove', function(e)
+  {
+  $(this).parents('.entry:first').remove();
+
+  e.preventDefault();
+  return false;
+});
+});
+
+</script>
+</script>
+
+</body>
+</html>
+
+
+            <!--
+            <div class="row">
+              <section class="balance_sheet">
+                <form class="" action="#" method="post">
+                  <h3>Assets</h3>
+                  <select class="selectpicker" data-live-search="true">
+                    <option>Cash</option>
+                    <option>Equipment</option>
+                    <option>Inventory</option>
+                    <option>Accounts Receivable</option>
+                  </select>
+                  <h3>Liabilities</h3>
+                  <select class="selectpicker" data-live-search="true">
+                    <option>Accounts Payable</option>
+                    <option>Credit Card Balance</option>
+                    <option>Long-term Debt</option>
+                  </select>
+                </form>
+              </section>
+            </div> -->
