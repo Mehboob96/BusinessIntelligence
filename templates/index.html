@@ -20,6 +20,7 @@
   </head>
 
   <body class="nav-md">
+    <input type="hidden" value="{{ user }}" id="user">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -142,14 +143,14 @@
           <!-- top tiles -->
           <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i>Site Visited</span>
+              <span class="count_top"><i class="fa fa-user"></i> Total Asset</span>
               <div class="count">2100</div>
-              <span class="count_bottom"><i class="green">8% </i> From last 10 days</span>
+              <span class="count_bottom"><i class="green">8% </i> Year</span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-clock-o"></i>Total Time Spent</span>
+              <span class="count_top"><i class="fa fa-clock-o"></i> Total liabilities</span>
               <div class="count">123.50</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>8% </i> From last 10 days</span>
+              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>8% </i> Year</span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Males</span>
@@ -356,39 +357,94 @@
     </div>
 
     <!-- eChart  -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src={{ url_for("static",filename="js/echarts.js") }}></script>
     <script type="text/javascript">
         // based on prepared DOM, initialize echarts instance
-        var myChart = echarts.init(document.getElementById('main'));
+        // var myChart = echarts.init(document.getElementById('main'));
+
+        var business_id = $("#user").val();
+
+        var source;
+        $.ajax({
+          'url':'/getBalanceSheet',
+          'type':"post",
+          'data':"business_id="+business_id,
+          "success":function(res){
+            var myChart = echarts.init(document.getElementById('main'));
+
+            response = JSON.parse(res);
+            var source = [['Year','Assets','Liabilities']];
+            // alert(response[0].year);
+            for(i=1,j=0; i<response.length + 1,j<response.length  ; i++,j++)
+            {
+              source.push([response[j].year,response[j].assets.total,response[j].liabilities.total]);
+            }
+
+            option = {
+              legend: {},
+              tooltip: {},
+              dataset: {
+                  source: source
+              },
+              xAxis: {type: 'category'},
+              yAxis: {},
+              // Declare several bar series, each will be mapped
+              // to a column of dataset.source by default.
+              series: [
+                  {type: 'bar'},
+                  {type: 'bar'}
+              ]
+          };
+
+
+            // use configuration item and data specified to show chart
+            myChart.setOption(option);
+          }
+        }
+        );
+        //
+        // var MongoClient = require('mongodb').MongoClient;
+        // var url = "mongodb://localhost:27017/";
+        // MongoClient.connect(url, function(err, db) {
+        //   if (err) throw err;
+        //   var dbo = db.db("example");
+        //   var query = { business_id: "Mehboob" };
+        //   dbo.collection("balancesheet").find(query).toArray(function(err, result) {
+        //     if (err) throw err;
+        //     console.log(result);
+        //     db.close();
+        //   });
+        // });
 
         // specify chart configuration item and data
-        option = {
-          legend: {},
-          tooltip: {},
-          dataset: {
-              source: [
-                  ['product', 'Investment', 'Net Profit', 'Overall Profit'],
-                  ['Company 1', 50, 65.8, 23.7],
-                  ['Company 2', 80.1, 50.4, 55.1],
-                  ['Company 3', 36.4, 25.2, 26.5],
-                  ['Company 4', 35.4, 37.9, 10.1]
-              ]
-          },
-          xAxis: {type: 'category'},
-          yAxis: {},
-          // Declare several bar series, each will be mapped
-          // to a column of dataset.source by default.
-          series: [
-              {type: 'bar'},
-              {type: 'bar'},
-              {type: 'bar'}
-          ]
-      };
-
-
-        // use configuration item and data specified to show chart
-        myChart.setOption(option);
-    </script>
+    //     option = {
+    //       legend: {},
+    //       tooltip: {},
+    //       dataset: {
+    //           source: [
+    //               ['product', 'Investment', 'Net Profit', 'Overall Profit'],
+    //               ['Company 1', 50, 65.8, 23.7],
+    //               ['Company 2', 80.1, 50.4, 55.1],
+    //               ['Company 3', 36.4, 25.2, 26.5],
+    //               ['Company 4', 35.4, 37.9, 10.1]
+    //           ]
+    //       },
+    //       xAxis: {type: 'category'},
+    //       yAxis: {},
+    //       // Declare several bar series, each will be mapped
+    //       // to a column of dataset.source by default.
+    //       series: [
+    //           {type: 'bar'},
+    //           {type: 'bar'},
+    //           {type: 'bar'}
+    //       ]
+    //   };
+    //
+    //
+    //     // use configuration item and data specified to show chart
+    //     myChart.setOption(option);
+    // </script>
 
     <!-- 2nd Graph  -->
     <script>

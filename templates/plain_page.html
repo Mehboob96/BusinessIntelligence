@@ -182,23 +182,49 @@
             </div>
 
             <!-- Form goes here -->
-            <form role="form" action="/addStatement" method="POST">
+            <form method="POST" action="{{ url_for('addStatement') }}" id="addStatement">
 
               <!-- Balance Sheet goes here -->
               <div class="setup-content" id="step-1">
 
                     <!-- Assets -->
                     <div class="container">
+
+                      <div class="row" style="margin-top:30px;">
+                        <div class="col-md-4">
+                          <label for="bid">Business ID </label>
+                        </div>
+                        <div class="col-md-4">
+                          <input type="text" class="form-control" name="bid" value={{user}} disabled>
+                        </div>
+                      </div>
+                      <div class="row" style="margin-top:30px;">
+                        <div class="col-md-4">
+                          <label for="year">Year</label>
+                        </div>
+                        <div class="col-md-4">
+                          <input type="number" class="form-control" name="year" placeholder="Enter the Year">
+                        </div>
+                      </div>
+                      <div class="row" style="margin-top:30px;">
+                        <div class="col-md-4">
+                          <label for="month">Month</label>
+                        </div>
+                        <div class="col-md-4">
+                          <input type="number" class="form-control" name="month" placeholder="Enter the Month">
+                        </div>
+                      </div>
+
                       <div class="panel panel-default" style="margin-top:30px;">
                         <div class="panel-heading" style="color: #337ab7;font-weight: bold;">Assets</div>
                         <div class="panel-body">
                           <div class="row">
                             <div class="col-md-12 asset-after-add-more">
                               <div class="control-group col-md-4">
-                                <input type="text" name="assettype[]" class="form-control" placeholder="Enter Asset Type" required="required">
+                                <input type="text" name="assettype" class="form-control" placeholder="Enter Asset Type">
                               </div>
                               <div class="control-group col-md-4">
-                                <input type="number" name="assetamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                                <input type="number" name="assetamount" class="form-control" placeholder="Enter Amount">
                               </div>
                               <div class="col-md-2">
                                 <button class="btn btn-success asset-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
@@ -210,10 +236,10 @@
                             <div class="asset-copy-fields hide">
                               <div class="col-md-12 control-group" style="margin-top:20px;">
                                 <div class="control-group col-md-4">
-                                  <input type="text" name="assettype[]" class="form-control" placeholder="Enter Asset Type">
+                                  <input type="text" name="assettype" class="form-control" placeholder="Enter Asset Type">
                                 </div>
                                 <div class="control-group col-md-4">
-                                  <input type="number" name="assetamount[]" class="form-control" placeholder="Enter Amount">
+                                  <input type="number" name="assetamount" class="form-control" placeholder="Enter Amount">
                                 </div>
                                 <div class="input-group-btn col-md-2">
                                   <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
@@ -230,10 +256,10 @@
                           <div class="row">
                             <div class="col-md-12 liability-after-add-more">
                               <div class="control-group col-md-4">
-                                <input type="text" name="liabilitytype[]" class="form-control" placeholder="Enter Liability Type" required="required">
+                                <input type="text" name="liabilitytype" class="form-control" placeholder="Enter Liability Type">
                               </div>
                               <div class="control-group col-md-4">
-                                <input type="number" name="liabilityamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                                <input type="number" name="liabilityamount" class="form-control" placeholder="Enter Amount">
                               </div>
                               <div class="col-md-2">
                                 <button class="btn btn-success liability-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
@@ -245,10 +271,10 @@
                             <div class="liability-copy-fields hide">
                               <div class="col-md-12 control-group" style="margin-top:20px;">
                                 <div class="control-group col-md-4">
-                                  <input type="text" name="liabilitytype[]" class="form-control" placeholder="Enter Liability Type">
+                                  <input type="text" name="liabilitytype" class="form-control" placeholder="Enter Liability Type">
                                 </div>
                                 <div class="control-group col-md-4">
-                                  <input type="number" name="liabilityamount[]" class="form-control" placeholder="Enter Amount">
+                                  <input type="number" name="liabilityamount" class="form-control" placeholder="Enter Amount">
                                 </div>
                                 <div class="input-group-btn col-md-2">
                                   <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
@@ -275,10 +301,10 @@
                       <div class="row">
                         <div class="col-md-12 operating-after-add-more">
                           <div class="control-group col-md-4">
-                            <input type="text" name="operatingtype[]" class="form-control" placeholder="Enter Operating Type" required="required">
+                            <input type="text" name="operatingtype" class="form-control" placeholder="Enter Operating Type">
                           </div>
                           <div class="control-group col-md-4">
-                            <input type="number" name="operatingamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                            <input type="number" name="operatingamount" class="form-control" placeholder="Enter Amount">
                           </div>
                           <div class="col-md-2">
                             <button class="btn btn-success operating-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
@@ -290,10 +316,10 @@
                         <div class="operating-copy-fields hide">
                           <div class="col-md-12 control-group" style="margin-top:20px;">
                             <div class="control-group col-md-4">
-                              <input type="text" name="operatingtype[]" class="form-control" placeholder="Enter Operating Type">
+                              <input type="text" name="operatingtype" class="form-control" placeholder="Enter Operating Type">
                             </div>
                             <div class="control-group col-md-4">
-                              <input type="number" name="operatingamount[]" class="form-control" placeholder="Enter Amount">
+                              <input type="number" name="operatingamount" class="form-control" placeholder="Enter Amount">
                             </div>
                             <div class="input-group-btn col-md-2">
                               <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
@@ -310,10 +336,10 @@
                       <div class="row">
                         <div class="col-md-12 investing-after-add-more">
                           <div class="control-group col-md-4">
-                            <input type="text" name="investingtype[]" class="form-control" placeholder="Enter Investing Type" required="required">
+                            <input type="text" name="investingtype" class="form-control" placeholder="Enter Investing Type">
                           </div>
                           <div class="control-group col-md-4">
-                            <input type="number" name="investingamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                            <input type="number" name="investingamount" class="form-control" placeholder="Enter Amount">
                           </div>
                           <div class="col-md-2">
                             <button class="btn btn-success investing-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
@@ -325,10 +351,10 @@
                         <div class="investing-copy-fields hide">
                           <div class="col-md-12 control-group" style="margin-top:20px;">
                             <div class="control-group col-md-4">
-                              <input type="text" name="investingtype[]" class="form-control" placeholder="Enter Investing Type">
+                              <input type="text" name="investingtype" class="form-control" placeholder="Enter Investing Type">
                             </div>
                             <div class="control-group col-md-4">
-                              <input type="number" name="investingamount[]" class="form-control" placeholder="Enter Amount">
+                              <input type="number" name="investingamount" class="form-control" placeholder="Enter Amount">
                             </div>
                             <div class="input-group-btn col-md-2">
                               <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
@@ -345,10 +371,10 @@
                       <div class="row">
                         <div class="col-md-12 financing-after-add-more">
                           <div class="control-group col-md-4">
-                            <input type="text" name="financingtype[]" class="form-control" placeholder="Enter Financing Type" required="required">
+                            <input type="text" name="financingtype" class="form-control" placeholder="Enter Financing Type">
                           </div>
                           <div class="control-group col-md-4">
-                            <input type="number" name="financingamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                            <input type="number" name="financingamount" class="form-control" placeholder="Enter Amount">
                           </div>
                           <div class="col-md-2">
                             <button class="btn btn-success financing-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
@@ -360,10 +386,10 @@
                         <div class="financing-copy-fields hide">
                           <div class="col-md-12 control-group" style="margin-top:20px;">
                             <div class="control-group col-md-4">
-                              <input type="text" name="financingtype[]" class="form-control" placeholder="Enter Financing Type">
+                              <input type="text" name="financingtype" class="form-control" placeholder="Enter Financing Type">
                             </div>
                             <div class="control-group col-md-4">
-                              <input type="number" name="financingamount[]" class="form-control" placeholder="Enter Amount">
+                              <input type="number" name="financingamount" class="form-control" placeholder="Enter Amount">
                             </div>
                             <div class="input-group-btn col-md-2">
                               <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
@@ -390,10 +416,10 @@
                       <div class="row">
                         <div class="col-md-12 revenue-after-add-more">
                           <div class="control-group col-md-4">
-                            <input type="text" name="revenuetype[]" class="form-control" placeholder="Enter Revenue Type" required="required">
+                            <input type="text" name="revenuetype" class="form-control" placeholder="Enter Revenue Type">
                           </div>
                           <div class="control-group col-md-4">
-                            <input type="number" name="revenueamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                            <input type="number" name="revenueamount" class="form-control" placeholder="Enter Amount">
                           </div>
                           <div class="col-md-2">
                             <button class="btn btn-success revenue-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
@@ -405,10 +431,10 @@
                         <div class="revenue-copy-fields hide">
                           <div class="col-md-12 control-group" style="margin-top:20px;">
                             <div class="control-group col-md-4">
-                              <input type="text" name="revenuetype[]" class="form-control" placeholder="Enter Revenue Type">
+                              <input type="text" name="revenuetype" class="form-control" placeholder="Enter Revenue Type">
                             </div>
                             <div class="control-group col-md-4">
-                              <input type="number" name="revenueamount[]" class="form-control" placeholder="Enter Amount">
+                              <input type="number" name="revenueamount" class="form-control" placeholder="Enter Amount">
                             </div>
                             <div class="input-group-btn col-md-2">
                               <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
@@ -425,10 +451,10 @@
                       <div class="row">
                         <div class="col-md-12 expenses-after-add-more">
                           <div class="control-group col-md-4">
-                            <input type="text" name="expensestype[]" class="form-control" placeholder="Enter Expenses Type" required="required">
+                            <input type="text" name="expensestype" class="form-control" placeholder="Enter Expenses Type">
                           </div>
                           <div class="control-group col-md-4">
-                            <input type="number" name="expensesamount[]" class="form-control" placeholder="Enter Amount" required="required">
+                            <input type="number" name="expensesamount" class="form-control" placeholder="Enter Amount">
                           </div>
                           <div class="col-md-2">
                             <button class="btn btn-success expenses-add-more" type="button"><i class="fa fa-plus"></i> Add</button>
@@ -440,10 +466,10 @@
                         <div class="expenses-copy-fields hide">
                           <div class="col-md-12 control-group" style="margin-top:20px;">
                             <div class="control-group col-md-4">
-                              <input type="text" name="expensestype[]" class="form-control" placeholder="Enter Expenses Type">
+                              <input type="text" name="expensestype" class="form-control" placeholder="Enter Expenses Type">
                             </div>
                             <div class="control-group col-md-4">
-                              <input type="number" name="expensesamount[]" class="form-control" placeholder="Enter Amount">
+                              <input type="number" name="expensesamount" class="form-control" placeholder="Enter Amount">
                             </div>
                             <div class="input-group-btn col-md-2">
                               <button class="btn btn-danger remove" type="button"><i class="fa fa-remove"></i> Remove</button>
@@ -455,7 +481,8 @@
                 </div>
 
                 <div class="col-md-12">
-                  <button class="btn btn-primary nextBtn btn-md pull-right" type="button" name="submit" >Submit</button>
+                  <input class="btn btn-primary nextBtn btn-md pull-right" type="submit" name="submit" value="Submit">
+                  <!-- <button  type="button" name="submit" >Submit</button> -->
                 </div>
               </div>
             </form>
