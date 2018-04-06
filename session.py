@@ -5,6 +5,7 @@ import pprint
 from flask import Flask, session, render_template, request, redirect, g, url_for,jsonify
 from database import *
 import os
+import bson
 from bson.json_util import dumps
 
 client = MongoClient('mongodb://localhost:27017/')
@@ -28,7 +29,8 @@ def index():
 @app.route('/home')
 def protected():
     if getsession():
-        db.balancesheet.find({"business_id":session['user']},{"assets.total":1})
+        # db.balancesheet.find({"business_id":session['user']},{"assets.total":1})
+         # db.balancesheet.find({"business_id":"Mehboob"}).forEach(bsonfunction(d){print(d.assets.total)})
         return render_template('index.html',user = session['user'])
 
     return redirect(url_for('index'))
@@ -49,18 +51,65 @@ def addStatement():
         result2 = request.form.getlist('assetamount')
         result3 = request.form.getlist('liabilitytype')
         result4 = request.form.getlist('liabilityamount')
+        result5 = request.form.getlist('operatingtype')
+        result6 = request.form.getlist('operatingamount')
+        result7 = request.form.getlist('investingtype')
+        result8 = request.form.getlist('investingamount')
+        result9 = request.form.getlist('financingtype')
+        result10 = request.form.getlist('financingamount')
+        result11 = request.form.getlist('revenuetype')
+        result12 = request.form.getlist('revenueamount')
+        result13 = request.form.getlist('expensestype')
+        result14 = request.form.getlist('expensesamount')
         totalasset = 0
         totalliability = 0
+        totaloperating = 0
+        totalinvesting = 0
+        totalfinancing = 0
+        totalrevenue = 0
+        totalexpenses = 0
 
         assets = {}
         for i in range(len(result)-1):
             assets[result[i]] = result2[i]
             totalasset = totalasset + int(result2[i])
+        assets['total'] = totalasset
 
         liabilities = {}
         for i in range(len(result3)-1):
             liabilities[result3[i]] = result4[i]
             totalliability = totalliability + int(result4[i])
+        liabilities['total'] = totalliability
+
+        operating = {}
+        for i in range(len(result5)-1):
+            operating[result5[i]] = result6[i]
+            totaloperating = totaloperating + int(result6[i])
+        operating['total'] = totaloperating
+
+        investing = {}
+        for i in range(len(result7)-1):
+            investing[result7[i]] = result8[i]
+            totalinvesting = totalinvesting + int(result8[i])
+        investing['total'] = totalinvesting
+
+        financing = {}
+        for i in range(len(result9)-1):
+            financing[result9[i]] = result10[i]
+            totalfinancing = totalfinancing + int(result10[i])
+        financing['total'] = totalfinancing
+
+        revenue = {}
+        for i in range(len(result11)-1):
+            revenue[result11[i]] = result12[i]
+            totalrevenue = totalrevenue + int(result12[i])
+        revenue['total'] = totalrevenue
+
+        expenses = {}
+        for i in range(len(result13)-1):
+            expenses[result13[i]] = result14[i]
+            totalexpenses = totalexpenses + int(result14[i])
+        expenses['total'] = totalexpenses
 
         doc = {
             "business_id" : session['user'],
@@ -69,7 +118,17 @@ def addStatement():
             "assets":assets,
             "totalasset" : totalasset,
             "liabilities":liabilities,
-            "totalliability": totalliability
+            "operating":operating,
+            "investing":investing,
+            "financing":financing,
+            "revenue":revenue,
+            "expenses":expenses,
+            # "totalliability": totalliability,
+            # "totaloperating": totaloperating,
+            # "totalinvesting": totalinvesting,
+            # "totalfinancing": totalfinancing,
+            # "totalrevenue": totalrevenue,
+            # "totalexpenses": totalexpenses
         }
         # return jsonify(doc);
 

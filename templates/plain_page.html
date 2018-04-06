@@ -203,7 +203,8 @@
                           <label for="year">Year</label>
                         </div>
                         <div class="col-md-4">
-                          <input type="number" class="form-control" name="year" placeholder="Enter the Year">
+                          <select id="year" class="form-control" name="year"></select>
+                          <!-- <input type="number" class="form-control" name="year" placeholder="Enter the Year"> -->
                         </div>
                       </div>
                       <div class="row" style="margin-top:30px;">
@@ -211,7 +212,8 @@
                           <label for="month">Month</label>
                         </div>
                         <div class="col-md-4">
-                          <input type="number" class="form-control" name="month" placeholder="Enter the Month">
+                          <select id="month" class="form-control" name="month"></select>
+                          <!-- <input type="number" class="form-control" name="month" placeholder="Enter the Month"> -->
                         </div>
                       </div>
 
@@ -533,7 +535,23 @@ $(function()
 
 </script>
 </script>
+<script type="text/javascript">
+  var year = 1996;
+  var till = 2018;
+  var options = "";
+  for(var y=year; y<=till; y++){
+  options += "<option>"+ y +"</option>";
+  }
+  document.getElementById("year").innerHTML = options;
 
+  var month = 01;
+  var till = 12;
+  var options = "";
+  for(var y=month; y<=till; y++){
+  options += "<option>"+ y +"</option>";
+  }
+  document.getElementById("month").innerHTML = options;
+</script>
 </body>
 </html>
 
