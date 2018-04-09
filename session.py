@@ -2,7 +2,7 @@ import pandas as pd
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
 import pprint
-from flask import Flask, session, render_template, request, redirect, g, url_for,jsonify
+from flask import Flask, session, render_template, request, redirect, g, url_for,jsonify,flash
 from database import *
 import os
 import bson
@@ -14,6 +14,7 @@ db = client.example
 app =Flask(__name__)
 app.secret_key = os.urandom(24)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -22,6 +23,7 @@ def index():
         users = User.select().where((User.username == request.form['username']) & ((User.password == request.form['password'])))
         if users:
             session['user'] = request.form['username']
+            flash('You were successfully logged in')
             return redirect(url_for('protected'))
 
     return render_template('login.html')
@@ -123,12 +125,6 @@ def addStatement():
             "financing":financing,
             "revenue":revenue,
             "expenses":expenses,
-            # "totalliability": totalliability,
-            # "totaloperating": totaloperating,
-            # "totalinvesting": totalinvesting,
-            # "totalfinancing": totalfinancing,
-            # "totalrevenue": totalrevenue,
-            # "totalexpenses": totalexpenses
         }
         # return jsonify(doc);
 
