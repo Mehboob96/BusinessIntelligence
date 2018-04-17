@@ -75,60 +75,76 @@ def addStatement():
         for i in range(len(result)-1):
             assets[result[i]] = result2[i]
             totalasset = totalasset + int(result2[i])
-        assets['total'] = totalasset
+        assets['Total'] = totalasset
 
         liabilities = {}
         for i in range(len(result3)-1):
             liabilities[result3[i]] = result4[i]
             totalliability = totalliability + int(result4[i])
-        liabilities['total'] = totalliability
+        liabilities['Total'] = totalliability
 
         operating = {}
         for i in range(len(result5)-1):
             operating[result5[i]] = result6[i]
             totaloperating = totaloperating + int(result6[i])
-        operating['total'] = totaloperating
+        operating['Total'] = totaloperating
 
         investing = {}
         for i in range(len(result7)-1):
             investing[result7[i]] = result8[i]
             totalinvesting = totalinvesting + int(result8[i])
-        investing['total'] = totalinvesting
+        investing['Total'] = totalinvesting
 
         financing = {}
         for i in range(len(result9)-1):
             financing[result9[i]] = result10[i]
             totalfinancing = totalfinancing + int(result10[i])
-        financing['total'] = totalfinancing
+        financing['Total'] = totalfinancing
 
         revenue = {}
         for i in range(len(result11)-1):
             revenue[result11[i]] = result12[i]
             totalrevenue = totalrevenue + int(result12[i])
-        revenue['total'] = totalrevenue
+        revenue['Total'] = totalrevenue
 
         expenses = {}
         for i in range(len(result13)-1):
             expenses[result13[i]] = result14[i]
             totalexpenses = totalexpenses + int(result14[i])
-        expenses['total'] = totalexpenses
+        expenses['Total'] = totalexpenses
 
+        #balancesheet
         doc = {
             "business_id" : session['user'],
-            "year" : request.form.get('year',None),
-            "month" : request.form.get('month',None),
+            "year" : int(request.form.get('year',None)),
+            "month" : int(request.form.get('month',None)),
             "assets":assets,
-            "totalasset" : totalasset,
-            "liabilities":liabilities,
+            "liabilities":liabilities
+        }
+
+        #Cashflow
+        doc2 = {
+            "business_id" : session['user'],
+            "year" : int(request.form.get('year',None)),
+            "month" : int(request.form.get('month',None)),
             "operating":operating,
             "investing":investing,
-            "financing":financing,
+            "financing":financing
+        }
+
+        #IncomeStatement
+        doc3 = {
+            "business_id" : session['user'],
+            "year" : int(request.form.get('year',None)),
+            "month" : int(request.form.get('month',None)),
             "revenue":revenue,
             "expenses":expenses,
         }
         # return jsonify(doc);
 
-        db.balancesheet.insert(doc)
+        db.balanceSheet.insert(doc)
+        db.cashFlowStatement.insert(doc2)
+        db.incomeStatement.insert(doc3)
         # print "ASSETS"
         # for i in range(len(result)-1):
         #     print result[i]," : ",result2[i]
@@ -148,10 +164,23 @@ def addStatement():
 
     return redirect(url_for('index'))
 
+@app.route('/getStatement',methods=['POST'])
+def getStatement():
+    s = db.balanceSheet.find({'$and':[{'business_id':session['user']},{'year':request.form['year']}]})
+    s1 = db.cashFlowStatement.find({'$and':[{'business_id':session['user']},{'year':request.form['year']}]})
+    # res = dumps(s,s1)
+    # data = {'bs':s,'cf':s1};
+    return dumps(s)
 
 @app.route('/getBalanceSheet',methods=['POST'])
 def getBalanceSheet():
-    bs = db.balancesheet.find({'business_id':'Mehboob'})
+    bs = db.balanceSheet.find({
+        '$and':[
+            {'business_id':session['user']},
+            {'year':request.form['year']}
+        ]
+    })
+
     return dumps(bs)
 
 @app.before_request

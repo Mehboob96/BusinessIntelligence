@@ -20,7 +20,7 @@
   </head>
 
   <body class="nav-md">
-    <input type="hidden" value="{{ user }}" id="user">
+    <input type="hidden" value = "{{ user }}" id="user">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -144,33 +144,39 @@
           <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Asset</span>
-              <div class="count">4200</div>
-              <span class="count_bottom"><i class="green">Year </i> 2018</span>
+              <div class="count" id="totA">0</div>
+              <span class="count_bottom"><i>
+                <label for="Year">Year</label>
+                <select class="green" id="year">
+                  <option value="2015">2015</option>
+                  <option value="2001">2001</option>
+                </select>
+              </i></span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total liabilities</span>
-              <div class="count">800</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>Year </i> 2018</span>
+              <div class="count red" id="totL">0</div>
+              <span class="count_bottom"><i class="green">Year </i> 2018</span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Expenses</span>
               <div class="count green">89000</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>Year </i> 2018</span>
+              <span class="count_bottom"><i class="green">Year </i> 2018</span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Revenue</span>
               <div class="count">75000</div>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>Year </i> 2018</span>
+              <span class="count_bottom"><i class="green">Year </i> 2018</span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Finance</span>
               <div class="count">5,5000</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>Year </i> 2018</span>
+              <span class="count_bottom"><i class="green">Year </i> 2018</span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Overall</span>
               <div class="count">5000</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>Year </i> 2018</span>
+              <span class="count_bottom"><i class="green">Year </i> 2018</span>
             </div>
           </div>
           <!-- /top tiles -->
@@ -183,12 +189,12 @@
                   <div class="col-md-6">
                     <h3>Reports <small>Graphical view</small></h3>
                   </div>
-                  <div class="col-md-6">
+                  <!-- <div class="col-md-6">
                     <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
                       <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                       <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
                 <!-- <div class="col-md-6 col-sm-9 col-xs-12" style="width:100%">
                   <img src="images/jetpack.png" alt="" style="width:inherit">User
@@ -209,19 +215,6 @@
               <div class="x_panel tile fixed_height_700">
                 <div class="x_title">
                   <h2>Balance Sheet</h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <!-- <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                      </ul> -->
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
                   <div class="clearfix"></div>
                 </div>
                   <div id="main" style="width=100%; height:400px;"></div
@@ -233,21 +226,6 @@
               <div class="x_panel tile fixed_height_700 overflow_hidden">
                 <div class="x_title">
                   <h2>Profit & Loss</h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <!-- <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul> -->
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
                   <div class="clearfix"></div>
                 </div>
                 <div id="graph2" style="height:400px;"></div>
@@ -364,13 +342,14 @@
         // var myChart = echarts.init(document.getElementById('main'));
 
         var business_id = $("#user").val();
+        var yr = $("#year").val();
 
         var source;
         $.ajax({
           'url':'/getBalanceSheet',
           'type':"post",
-          'data':"business_id="+business_id,
-          "success":function(res){
+          'data':'year='+yr,
+          'success':function(res){
             var myChart = echarts.init(document.getElementById('main'));
 
             response = JSON.parse(res);
@@ -378,7 +357,7 @@
             // alert(response[0].year);
             for(i=1,j=0; i<response.length + 1,j<response.length  ; i++,j++)
             {
-              source.push([response[j].year,response[j].assets.total,response[j].liabilities.total]);
+              source.push([response[j].year,response[j].assets.Total,response[j].liabilities.Total]);
             }
 
             option = {
@@ -686,6 +665,35 @@
           myChart.setOption(option);
     </script>
 
+    <!-- Select Year -->
+    <script>
+
+      $('#year').on('change', function (e) {
+        var optionSelected = $(this).val();
+        location.reload();
+        // $('#year').html(optionSelected);
+      });
+
+      var yr = $("#year").val();
+      $.ajax({
+        'url':'/getStatement',
+        'type':'post',
+        'data':'year='+yr,
+        "success":function(res){
+          response = JSON.parse(res);
+          // alert(response[0].assets.Total);
+          // $('#totA').text(response[0].assets.Total);
+          $('#totA').text(response[0].assets.Total);
+          $('#totL').text(response[0].liabilities.Total);
+          // alert(response1[0].assets.Total);
+          // alert(response1[0].liabilities.Total);
+          // for(i=1,j=0; i<response.length + 1,j<response.length  ; i++,j++)
+          // {
+            // source.push([response[j].year,response[j].assets.Total,response[j].liabilities.Total]);
+          // }
+        }
+      });
+    </script>
 
 
     <!-- jQuery -->
