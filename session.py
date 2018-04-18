@@ -183,6 +183,26 @@ def getBalanceSheet():
 
     return dumps(bs)
 
+@app.route('/Prof')
+def prof():
+    if getsession():
+        return render_template('profile.html',user=session['user'])
+    return redirect(url_for('protected'))
+
+
+@app.route('/updateProfile',methods=['POST'])
+def updateProfile():
+    if getsession():
+        status = Profile.create(username = session['user'],
+        funding = request.form['funding'],
+        date = request.form['fundingdate'],
+        fburl = request.form['fburl'],
+        linkedinurl = request.form['lurl'],
+        twitterurl = request.form['turl'],
+        website = request.form['website'])
+        return render_template('index.html',user = session['user'])
+    return redirect(url_for('protected'))
+
 @app.before_request
 def before_request():
     g.user = None
@@ -203,10 +223,12 @@ def dropsession():
 
 @app.route('/registration',methods=['POST'])
 def register():
-	status = User.create(username = request.form['username'],
-		password = request.form['password'],
-		email = request.form['email'])
-        return redirect(url_for('index'))
+    # console.log(request.form['category'])
+    status = User.create(username = request.form['username'],
+    password = request.form['password'],
+    email = request.form['email'],
+    category = request.form['category'])
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
